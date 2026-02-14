@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚖️ EXPEDIENTE DOMINIQUE-2026: SENTENCIA FINAL 🏀</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark-gold: #8a6d3b;
+            --bg: #050505;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: radial-gradient(circle at center, #1a1a1a 0%, var(--bg) 100%);
+            font-family: 'Times New Roman', serif;
+            color: var(--gold);
+            overflow: hidden;
+            min-height: 100vh;
+            cursor: crosshair;
+        }
+
+        /* Distracciones Flotantes */
+        .floating-emoji {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            font-size: 20px;
+            animation: float-around 10s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float-around {
+            0% { transform: translate(-100vw, 0vh) rotate(0deg); }
+            100% { transform: translate(100vw, 100vh) rotate(360deg); }
+        }
+
+        /* Contenedor Principal */
+        .container { 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .main-title { 
+            font-size: clamp(1.8rem, 6vw, 3.5rem); 
+            text-align: center; 
+            text-transform: uppercase; 
+            letter-spacing: 6px; 
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); 
+            margin-bottom: 20px; 
+            border-bottom: 2px double var(--gold);
+        }
+
+        /* Pantalla de Inicio */
+        #start-overlay { 
+            position: fixed; top:0; left:0; width:100%; height:100%; 
+            background: black; z-index: 100000; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            border: 15px double var(--gold);
+        }
+
+        /* Cuadro de Mensaje */
+        .message-box { 
+            background: rgba(20, 20, 20, 0.8); 
+            border: 2px solid var(--gold); 
+            padding: 40px; 
+            max-width: 700px; 
+            text-align: center; 
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Pistas y Progreso */
+        .progress-bar { 
+            position: fixed; top: 100px; right: 20px; 
+            background: rgba(0,0,0,0.8); padding: 15px; 
+            border: 1px solid var(--gold); z-index: 1000; 
+        }
+        .progress-steps { display: flex; gap: 8px; margin-top: 10px; }
+        .progress-step { 
+            width: 30px; height: 30px; border: 1px solid #444; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: bold; transition: 0.5s; 
+        }
+        .progress-step.completed { 
+            background: var(--gold); color: #000; 
+            box-shadow: 0 0 15px var(--gold); 
+        }
+
+        .hidden-clue { 
+            position: fixed; cursor: pointer; font-size: 45px; 
+            opacity: 0; z-index: 100; transition: 0.4s; 
+            filter: grayscale(1);
+        }
+        .hidden-clue.active { opacity: 0.2; pointer-events: auto; }
+        .hidden-clue:hover { opacity: 1; filter: grayscale(0); transform: scale(1.3); }
+
+        /* Contadores */
+        .click-counter { 
+            position: fixed; top: 20px; right: 20px; 
+            background: #000; border: 2px solid var(--gold); 
+            padding: 10px 20px; font-weight: bold; z-index: 1000; 
+        }
+
+        /* Botones */
+        .clue-button { 
+            background: var(--gold); color: #000; border: none; 
+            padding: 15px 40px; cursor: pointer; font-weight: bold; 
+            text-transform: uppercase; transition: 0.3s; 
+            font-family: 'Times New Roman'; margin-top: 20px;
+        }
+        .clue-button:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212,175,55,0.4); }
+
+        /* Ventanas Emergentes */
+        .clue-box, #valentines-card { 
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            background: #111; padding: 40px; border: 3px double var(--gold); 
+            z-index: 20000; width: 450px; text-align: center; display: none; 
+            box-shadow: 0 0 100px rgba(0,0,0,0.9);
+        }
+        .clue-box.show, #valentines-card.show { display: block; animation: zoomIn 0.3s ease-out; }
+
+        @keyframes zoomIn { from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+
+        .final-message { 
+            position: fixed; inset: 0; background: #000; 
+            z-index: 99999; display: none; align-items: center; justify-content: center; 
+        }
+
+        .trail-emoji {
+            position: absolute; pointer-events: none;
+            animation: fall 1.5s linear forwards;
+            font-size: 24px;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="start-overlay">
+        <h1 style="letter-spacing:10px;">AUTO DE ADMISIÓN</h1>
+        <p style="margin: 20px 0; color:#aaa; font-style: italic;">EXPEDIENTE N° 14-02-2026-DOMI-ALE</p>
+        <div style="font-size: 50px; margin-bottom: 20px;">⚖️🏛️</div>
+        <button class="clue-button" onclick="startApp()">NOTIFICARSE Y REPRODUCIR PRUEBAS ⚖️</button>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="music/au.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="click-counter">FALTAS COMETIDAS: <span id="count">0</span> / 14 🏀</div>
+
+    <div class="progress-bar">
+        <p style="font-size:11px; text-align:center; letter-spacing: 2px;">EXPEDIENTE JUDICIAL</p>
+        <div class="progress-steps">
+            <div class="progress-step" id="step1">I</div>
+            <div class="progress-step" id="step2">II</div>
+            <div class="progress-step" id="step3">III</div>
+            <div class="progress-step" id="step4">IV</div>
+            <div class="progress-step" id="step5">V</div>
+            <div class="progress-step" id="step6">VI</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="main-title">SENTENCIA DE CASACIÓN ⚖️</h1>
+        <div class="message-box">
+            <p style="color:#fff; line-height:2; font-size: 1.1rem;">
+                <strong>A LA ABOGADA DE MI CORAZÓN:</strong><br><br>
+                Se le declara culpable de <b>Dolo Amoroso</b> y <b>La ganadora de mi corazón</b> 🏀.<br>
+                No hay apelación posible ante esta instancia superior. <br><br>
+                <span style="color: var(--gold);">Debe recolectar las 6 evidencias ocultas en este despacho para cerrar el caso.</span><br>
+                <small><i>"Pista 1: El juicio comienza en los cimientos del título principal."</i></small>
+            </p>
+        </div>
+    </div>
+
+    <div class="hidden-clue active" id="clue1" style="top: 25%; left: 48%;">📜</div>
+    <div class="hidden-clue" id="clue2" style="top: 40%; right: 5%;">⚖️</div>
+    <div class="hidden-clue" id="clue3" style="bottom: 15%; left: 10%;">🖋️</div>
+    <div class="hidden-clue" id="clue4" style="top: 65%; left: 25%;">📖</div>
+    <div class="hidden-clue" id="clue5" style="bottom: 30%; right: 35%;">📂</div>
+    <div class="hidden-clue" id="clue6" style="top: 15%; left: 10%;">🏆</div>
+
+    <div class="clue-box" id="clueBox">
+        <h2 id="clueTitle" style="color:var(--gold); margin-bottom:15px; border-bottom: 1px solid var(--gold);"></h2>
+        <p id="clueText" style="color:#fff; margin-bottom:20px; font-size:16px; line-height: 1.6;"></p>
+        <button class="clue-button" onclick="closeClue()">SIGUIENTE DILIGENCIA ⚖️</button>
+    </div>
+
+    <div id="valentines-card">
+        <h2 style="color:#ff4d4d; margin-bottom:15px;">❤️ ¡TIEMPO FUERA! ❤️</h2>
+        <p style="color:#fff; margin-bottom:20px;">
+            Has alcanzado 14 faltas... ¡pero hoy es 14 de febrero! <br><br>
+            En este juzgado se dictamina que eres el amor de mi vida. <br>
+            <b>¡Feliz San Valentín, mi ABOGADA favorita!</b> 🌹
+        </p>
+        <button class="clue-button" style="background:#ff4d4d;" onclick="closeValentines()">VOLVER AL JUICIO ⚖️</button>
+    </div>
+
+    <div class="final-message" id="finalMessage">
+        <div class="message-box" style="border: 5px double var(--gold);">
+            <h2 style="color:var(--gold); letter-spacing:8px; font-size: 2.5rem;">FALLO DEFINITIVO</h2>
+            <p style="margin:30px 0; color:#fff; font-size:1.4rem;">
+                Se condena a la acusada a <b>Cadena Perpetua</b> dentro de mis pensamientos.<br><br>
+                Sin derecho a fianza, pero con derecho a infinitos besos y momentos compartidos. 🏀❤️<br><br>
+                <strong>¡FELIZ 14 DE FEBRERO!</strong>
+            </p>
+            <p style="color:#888; font-size:12px;">Dado en la Corte Suprema del Amor, a los 14 días de febrero de 2026.</p>
+        </div>
+    </div>
+
+    <script>
+        const clues = {
+            clue1: { t: "I: LA NOTIFICACIÓN 📜", m: "Se notifica que no hay día que no piense en ti. Siempre te vez linda y tienes espacio en mi vida. 🏀" },
+            clue2: { t: "II: CARGA DE LA PRUEBA ⚖️", m: "Presento como prueba número 2 todas nuestras risas. Es imposible negar que nos divertimos en cualquier lugar y momento. 🏆" },
+            clue3: { t: "III: EL PERITAJE 🖋️", m: "El perito experto confirma: Tu sonrisa tiene un efecto hipnótico ilegal en los ojos. ¡Me rindo ante ti! 😍" },
+            clue4: { t: "IV: JURISPRUDENCIA 📖", m: "Según los precedentes, nunca nadie me había hecho tan feliz. Has sentado un precedente histórico en mi corazón. 🏛️" },
+            clue5: { t: "V: MEDIDA CAUTELAR 📂", m: "Se ordena la detención inmediata de cualquier pelea. Solo se permiten abrazos y besos como medida de seguridad. 🔒❤️" },
+            clue6: { t: "VI: VEREDICTO FINAL 🏆", m: "Las pruebas son contundentes. Eres la ganadora del trofeo más importante: mi corazón. ¡Prepara la celebración, mi amor! 🏀🔥" }
+        };
+
+        let found = 0; 
+        let clicks = 0;
+        let valentinesShown = false;
+        const audio = document.getElementById('bg-music');
+
+        // Crear distracciones automáticas
+        function createDistractions() {
+            const emojis = ['⚖️', '🏀', '❤️', '📜', '🔥', '💎', '🌹'];
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.className = 'floating-emoji';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.left = "-50px";
+                el.style.top = Math.random() * 500 + "vh";
+                el.style.animationDuration = (Math.random() * 5 + 5) + "s";
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 10000);
+            }, 1000);
+        }
+
+        function startApp() {
+            document.getElementById('start-overlay').style.display = 'none';
+            audio.play().catch(e => console.log("Música requiere interacción previa"));
+            createDistractions();
+        }
+
+        // Efecto de trail y contador
+        document.addEventListener('mousedown', (e) => {
+            if(document.getElementById('start-overlay').style.display !== 'none') return;
+            
+            clicks++;
+            document.getElementById('count').textContent = clicks;
+
+            if(clicks === 14 && !valentinesShown) {
+                document.getElementById('valentines-card').classList.add('show');
+                valentinesShown = true;
+            }
+
+            // Partículas al click
+            for(let i=0; i<8; i++) {
+                const span = document.createElement('span');
+                span.className = 'trail-emoji';
+                span.textContent = ['❤️', '🏀', '⚖️'][Math.floor(Math.random()*3)];
+                span.style.left = e.pageX + 'px';
+                span.style.top = e.pageY + 'px';
+                span.style.left = (e.pageX + (Math.random()*60 - 30)) + 'px';
+                document.body.appendChild(span);
+                setTimeout(() => span.remove(), 1500);
+            }
+        });
+
+        function showClue(n) {
+            if (n !== found + 1) return;
+            const c = clues[`clue${n}`];
+            document.getElementById('clueTitle').textContent = c.t;
+            document.getElementById('clueText').textContent = c.m;
+            document.getElementById('clueBox').classList.add('show');
+            document.getElementById(`step${n}`).classList.add('completed');
+            document.getElementById(`clue${n}`).classList.remove('active');
+            found++;
+            if(found < 6) document.getElementById(`clue${found+1}`).classList.add('active');
+        }
+
+        function closeClue() {
+            document.getElementById('clueBox').classList.remove('show');
+            if(found === 6) {
+                setTimeout(() => {
+                    document.getElementById('finalMessage').style.display = 'flex';
+                }, 500);
+            }
+        }
+
+        function closeValentines() {
+            document.getElementById('valentines-card').classList.remove('show');
+        }
+
+        // Asignar clicks a pistas
+        for(let i=1; i<=6; i++) {
+            document.getElementById(`clue${i}`).onclick = (e) => {
+                e.stopPropagation();
+                showClue(i);
+            };
+        }
+    </script>
+</body>
+</html>
